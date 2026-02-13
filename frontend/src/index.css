@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@custom-variant dark (&:where(.dark *));
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+    font-family: 'Space Grotesk', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --color-accent: #f97316;
+    /* Orange-500 */
+    --color-border: #09090b;
+    /* Zinc-950 */
+    --shadow-hard: 4px 4px 0px 0px #09090b;
+}
+
+body {
+    @apply bg-white text-slate-950 antialiased;
+    @apply dark:bg-zinc-950 dark:text-zinc-50;
+}
+
+/* ── Typography Overrides ──────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold tracking-tight uppercase;
+}
+
+/* ── Brutalist Utilities ───────────────────────────────────── */
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+.brutalist-border {
+    @apply border-2 border-slate-950 dark:border-zinc-50;
+}
+
+.brutalist-shadow {
+    box-shadow: 4px 4px 0px 0px #09090b;
+}
+
+.dark .brutalist-shadow {
+    box-shadow: 4px 4px 0px 0px #fafafa;
+}
+
+.brutalist-shadow-sm {
+    box-shadow: 2px 2px 0px 0px #09090b;
+}
+
+.dark .brutalist-shadow-sm {
+    box-shadow: 2px 2px 0px 0px #fafafa;
+}
+
+/* ── Selection & Scrollbar ─────────────────────────────────── */
+::selection {
+    @apply bg-orange-500 text-white;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-white border-l-2 border-slate-950;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-orange-500 border-2 border-slate-950;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-orange-600;
+}
+
+/* ── Hide Scrollbar (for horizontal chip rows) ── */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

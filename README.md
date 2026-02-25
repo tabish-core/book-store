@@ -1,15 +1,15 @@
-# 🧱 BOOK STORE
+# 📚 BOOK STORE
 
-> **"RAW DATA MANAGEMENT SYSTEM v2.0"**
-> A MERN Stack application featuring a strict Neo-Brutalist UI, JWT Authentication, and Full CRUD capabilities.
+
+> A MERN Stack application featuring JWT Authentication, and Full CRUD capabilities.
 
 ![Home Screen Preview](screenshots/home.png)
-*(Place a screenshot of your Home page here)*
+
 
 ## ⚡ Features
 
 ### 🎨 Neo-Brutalist Design
-- **Typography:** `Space Grotesk` (Headings) + `Space Mono` (Data).
+- **Typography:** `Space Grotesk` (Headings) + `Space Mono` (Data). stats
 - **Styling:** Strict 2px borders, **zero** border-radius, hard shadows.
 - **Palette:** High-contrast Monochrome + International Orange.
 - **Responsiveness:** Mobile-first stack layouts vs Desktop grids.
@@ -29,7 +29,7 @@
 ---
 
 ## 📸 Screenshots
-(Add your screenshots to a `screenshots` folder in this repo!)
+
 
 | Login Screen | Book Details |
 | :---: | :---: |
@@ -102,4 +102,4 @@ See [DEPLOY.md](./DEPLOY.md) for step-by-step instructions.
 ---
 
 ## 📝 License
-This project is open source. "Public Domain Knowledge Base".
+This project is open source.

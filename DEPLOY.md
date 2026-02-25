@@ -69,4 +69,4 @@ If you prefer to host Everything on Vercel:
     -   Update `VITE_API_URL` to point to your new **Vercel Backend URL**.
     -   Redeploy Frontend.
 
-**Congratulations! Your Brutalist Book Store is live!** 🚀
+**Congratulations! Your Book Store is live!** 

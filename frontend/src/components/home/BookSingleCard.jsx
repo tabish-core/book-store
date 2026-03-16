@@ -27,7 +27,7 @@ const BookSingleCard = ({ book, index = 0 }) => {
             <img
               src={book.imageURL}
               alt={book.title}
-              className="w-full h-full object-cover transition-all duration-300"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">

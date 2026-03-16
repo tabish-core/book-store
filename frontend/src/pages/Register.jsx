@@ -40,8 +40,7 @@ const Register = () => {
                         <span className="font-mono font-bold text-orange-500 hover:underline">← BACK TO TERMINAL</span>
                     </Link>
 
-                    <h2 className="text-3xl sm:text-4xl font-black uppercase mb-2 text-slate-950 dark:text-zinc-50">New Entity</h2>
-                    <p className="font-mono text-sm text-slate-500 dark:text-zinc-400 mb-10">INITIALIZE DATABASE RECORD.</p>
+                    <h2 className="text-3xl sm:text-4xl font-black uppercase mb-2 text-slate-950 dark:text-zinc-50">New User</h2>
 
                     <form onSubmit={handleRegister} className="space-y-6">
                         <Input
@@ -88,25 +87,21 @@ const Register = () => {
             </div>
 
             {/* Right — Solid Black Panel */}
-            <div className="w-full md:w-1/2 bg-slate-950 text-white border-b-2 md:border-b-0 md:border-l-2 border-orange-500 p-6 sm:p-12 flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
-                <div className="z-10">
-                    <div className="w-16 h-16 bg-orange-500 flex items-center justify-center border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] mb-8">
-                        <PiBookOpenTextLight className="text-4xl text-white" />
-                    </div>
+            <div className="w-full md:w-1/2 bg-slate-950 text-white border-b-2 md:border-b-0 md:border-l-2 border-slate-950 p-6 sm:p-12 flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
+                <div className="z-10 text-right">
                     <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
                         Join<br />The<br />Grid
                     </h1>
                 </div>
-                <p className="text-orange-500 font-mono font-bold text-sm sm:text-lg max-w-sm z-10 mt-6 sm:mt-8">
-                    Create your account and start building your library.
-                </p>
-
-                {/* Decorative Grid */}
-                <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-10 pointer-events-none">
-                    {Array.from({ length: 36 }).map((_, i) => (
-                        <div key={i} className="border-r border-b border-white" />
-                    ))}
+                <div className="z-10 mt-8 text-right">
+                    <div className="inline-block border-2 border-white p-4">
+                        <PiBookOpenTextLight className="text-6xl text-white" />
+                    </div>
                 </div>
+
+                {/* Decorative Circles */}
+                <div className="absolute -bottom-24 -right-24 w-96 h-96 border-[20px] border-orange-500 rounded-full opacity-50" />
+                <div className="absolute top-1/2 left-1/2 w-64 h-64 border-2 border-white rounded-full -translate-x-1/2 -translate-y-1/2 opacity-20" />
             </div>
         </div>
     );

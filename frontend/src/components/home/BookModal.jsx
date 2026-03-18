@@ -54,7 +54,7 @@ const BookModal = ({ book, onClose }) => {
           </div>
 
           <div className="prose prose-slate max-w-none">
-            <h4 className="font-black uppercase text-lg mb-2">Manifesto / Summary</h4>
+            <h4 className="font-black uppercase text-lg mb-2">Overview</h4>
             <p className="font-mono text-sm leading-relaxed text-slate-700">
               <span className="font-bold bg-orange-200 px-1">"{book.title}"</span> is a work recorded in the database under the authorship of <span className="font-bold">{book.author}</span>.
               Published in the year {book.publishYear}. System ID: {book._id}.

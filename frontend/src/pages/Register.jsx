@@ -23,11 +23,11 @@ const Register = () => {
         try {
             await axios.post(`${config.API_URL}/auth/register`, { username, email, password });
             setLoading(false);
-            enqueueSnackbar('ENTITY CREATED', { variant: 'success' });
+            enqueueSnackbar('User Created Successfully', { variant: 'success' });
             navigate('/login');
         } catch (error) {
             setLoading(false);
-            enqueueSnackbar(error.response?.data?.message || 'CREATION FAILED', { variant: 'error' });
+            enqueueSnackbar(error.response?.data?.message || 'User Creation Failed', { variant: 'error' });
         }
     };
 
@@ -90,7 +90,7 @@ const Register = () => {
             <div className="w-full md:w-1/2 bg-slate-950 text-white border-b-2 md:border-b-0 md:border-l-2 border-slate-950 p-6 sm:p-12 flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
                 <div className="z-10 text-right">
                     <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
-                        Join<br />The<br />Store
+                        Join<br />The<br />World
                     </h1>
                 </div>
                 <div className="z-10 mt-8 text-right">

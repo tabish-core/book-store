@@ -37,34 +37,34 @@ const Register = () => {
             <div className="w-full md:w-1/2 bg-white dark:bg-zinc-950 p-6 sm:p-12 flex flex-col justify-center order-2 md:order-1">
                 <div className="max-w-md w-full mx-auto">
                     <Link to="/" className="mb-12 block">
-                        <span className="font-mono font-bold text-orange-500 hover:underline">← BACK TO TERMINAL</span>
+                        <span className="font-mono font-bold text-orange-500 hover:underline">← BACK</span>
                     </Link>
 
                     <h2 className="text-3xl sm:text-4xl font-black uppercase mb-2 text-slate-950 dark:text-zinc-50">New User</h2>
 
                     <form onSubmit={handleRegister} className="space-y-6">
                         <Input
-                            label="Username ID"
+                            label="Username"
                             icon={HiOutlineUser}
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder="CODENAME"
+                            placeholder="name"
                             required
                             className="uppercase"
                         />
                         <Input
-                            label="Email Address"
+                            label="Email"
                             icon={HiOutlineMail}
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="USER@DOMAIN.COM"
+                            placeholder="tabish@gmail.com"
                             required
                             className="uppercase"
                         />
                         <Input
-                            label="Password Key"
+                            label="Password"
                             icon={HiOutlineLockClosed}
                             type="password"
                             value={password}
@@ -73,14 +73,14 @@ const Register = () => {
                             required
                         />
                         <Button type="submit" loading={loading} className="w-full h-14 text-lg">
-                            {loading ? 'PROCESSING...' : 'INITIALIZE ENTITY'}
+                            {loading ? 'PROCESSING...' : 'Sign Up'}
                         </Button>
                     </form>
 
                     <div className="mt-12 pt-8 border-t-2 border-slate-950 dark:border-zinc-800 flex justify-between items-center">
                         <span className="font-mono text-xs font-bold text-slate-500 dark:text-zinc-500">ALREADY REGISTERED?</span>
                         <Link to="/login">
-                            <Button variant="ghost" size="sm">ACCESS LOGIN</Button>
+                            <Button variant="ghost" size="sm">LOGIN</Button>
                         </Link>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ const Register = () => {
             <div className="w-full md:w-1/2 bg-slate-950 text-white border-b-2 md:border-b-0 md:border-l-2 border-slate-950 p-6 sm:p-12 flex flex-col justify-between relative overflow-hidden order-1 md:order-2">
                 <div className="z-10 text-right">
                     <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
-                        Join<br />The<br />Grid
+                        Join<br />The<br />Store
                     </h1>
                 </div>
                 <div className="z-10 mt-8 text-right">

@@ -20,8 +20,8 @@ const DeleteBook = () => {
     axios.delete(`${config.API_URL}/books/${id}`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(() => { setLoading(false); enqueueSnackbar('TERMINATION COMPLETE', { variant: 'success' }); navigate('/'); })
-      .catch(() => { setLoading(false); enqueueSnackbar('TERMINATION FAILED', { variant: 'error' }); });
+      .then(() => { setLoading(false); enqueueSnackbar('Book Deleted Successfully', { variant: 'success' }); navigate('/'); })
+      .catch(() => { setLoading(false); enqueueSnackbar('Book Deletion Failed', { variant: 'error' }); });
   };
 
   return (
@@ -44,10 +44,10 @@ const DeleteBook = () => {
 
           <div className="flex flex-col gap-3">
             <Button onClick={handleDelete} loading={loading} className="w-full h-14 bg-red-600 text-white border-2 border-slate-950 hover:bg-red-700 hover:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              {loading ? 'ERASING...' : 'CONFIRM TERMINATION'}
+              {loading ? 'Deleting...' : 'Delete'}
             </Button>
             <Button variant="outline" className="w-full h-12" onClick={() => navigate(-1)}>
-              ABORT OPERATION
+              Back
             </Button>
           </div>
         </motion.div>

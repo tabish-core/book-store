@@ -20,26 +20,46 @@ const CreateBooks = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_SIZE) {
+      enqueueSnackbar('Image too large. Maximum size is 5MB.', { variant: 'warning' });
+      e.target.value = '';
+      return;
+    }
     const formData = new FormData();
     formData.append('image', file);
     setLoading(true);
     axios.post(`${config.API_URL}/books/upload`, formData, {
       headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     })
-      .then((res) => { setImageURL(res.data.imageURL); setLoading(false); enqueueSnackbar('IMAGE UPLOADED LOUD AND CLEAR', { variant: 'success' }); })
-      .catch(() => { setLoading(false); enqueueSnackbar('UPLOAD FAILED', { variant: 'error' }); });
+      .then((res) => { setImageURL(res.data.imageURL); setLoading(false); enqueueSnackbar('Image Uploaded Successfully', { variant: 'success' }); })
+      .catch((error) => { setLoading(false); enqueueSnackbar(error.response?.data?.message || 'Image Upload Failed', { variant: 'error' }); });
   };
 
   const handleSave = () => {
+    if (!title || !author || !publishYear) {
+      enqueueSnackbar('Please fill all required fields', { variant: 'warning' });
+      return;
+    }
+
     setLoading(true);
     axios.post(`${config.API_URL}/books`, { title, author, publishYear, imageURL }, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(() => { setLoading(false); enqueueSnackbar('DATABASE RECORD CREATED', { variant: 'success' }); navigate('/'); })
-      .catch(() => { setLoading(false); enqueueSnackbar('CREATION FAILED', { variant: 'error' }); });
+      .then(() => {
+        setLoading(false);
+        enqueueSnackbar('Book Created Successfully', { variant: 'success' });
+        navigate('/');
+      })
+      .catch((error) => {
+        setLoading(false);
+        const message = error.response?.data?.message || 'Book Creation Failed';
+        enqueueSnackbar(message, { variant: 'error' });
+      });
   };
 
   return (
@@ -54,17 +74,17 @@ const CreateBooks = () => {
           className="mt-8 bg-white dark:bg-zinc-900 border-2 border-slate-950 dark:border-zinc-50 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-8 sm:p-12"
         >
           <h1 className="text-4xl sm:text-5xl font-black uppercase mb-8 border-b-2 border-slate-950 dark:border-zinc-50 pb-4">
-            Initialize<br />New Item
+            Add<br />New Book
           </h1>
 
           <div className="space-y-8">
-            <Input label="Title Designation" icon={HiOutlineBookOpen} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="ENTER TITLE" className="uppercase" />
-            <Input label="Author Identity" icon={HiOutlineUser} value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="ENTER AUTHOR" className="uppercase" />
-            <Input label="Publish Year" icon={HiOutlineCalendar} type="number" value={publishYear} onChange={(e) => setPublishYear(e.target.value)} placeholder="YYYY" />
+            <Input label="Enter Title" icon={HiOutlineBookOpen} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="TITLE" className="uppercase" />
+            <Input label="Enter Author" icon={HiOutlineUser} value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="AUTHOR" className="uppercase" />
+            <Input label="Enter Publish Year" icon={HiOutlineCalendar} type="number" value={publishYear} onChange={(e) => setPublishYear(e.target.value)} placeholder="YYYY" />
 
             {/* Brutalist Image Upload */}
             <div className="space-y-2 font-mono">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Visual Asset</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Book Cover</label>
               {imageURL ? (
                 <div className="relative border-2 border-slate-950 dark:border-zinc-50 p-2 bg-slate-100 dark:bg-zinc-800">
                   <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50 grayscale hover:grayscale-0 transition-all" />
@@ -85,7 +105,7 @@ const CreateBooks = () => {
             </div>
 
             <Button onClick={handleSave} loading={loading} className="w-full h-14 text-lg border-2 border-slate-950 bg-slate-950 text-white hover:bg-orange-500 hover:text-white dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-orange-500 dark:hover:text-white">
-              {loading ? 'WRITING TO DISC...' : 'COMMIT RECORD'}
+              {loading ? 'Saving...' : 'Save'}
             </Button>
           </div>
         </motion.div>

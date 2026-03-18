@@ -164,8 +164,8 @@ const Home = () => {
           ) : (
             <EmptyState
               key="empty"
-              title="NO DATA FOUND"
-              message="Query returned 0 results. Adjust filters or populate database."
+              title="NO BOOKS FOUND"
+              message="No books found. Adjust filters or add books."
               onAction={clearFilters}
               actionLabel="RESET FILTERS"
             />

@@ -1,27 +1,25 @@
 import express from 'express';
 import { Book } from '../models/bookModel.js';
 import multer from 'multer';
-import path from 'path';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Cloudinary Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const router = express.Router();
 
-// Multer Configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Appending extension
-    }
-});
-
+// Multer — use memory storage (no disk writes, compatible with serverless)
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 const upload = multer({
-    storage: storage,
+    storage: multer.memoryStorage(),
     limits: { fileSize: MAX_FILE_SIZE },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
@@ -31,9 +29,9 @@ const upload = multer({
     }
 });
 
-// Route for Uploading Image
+// Route for Uploading Image (streams buffer to Cloudinary)
 router.post('/upload', verifyToken, (req, res) => {
-    upload.single('image')(req, res, (err) => {
+    upload.single('image')(req, res, async (err) => {
         if (err) {
             if (err.code === 'LIMIT_FILE_SIZE') {
                 return res.status(400).send({ message: 'File too large. Maximum size is 5MB.' });
@@ -43,8 +41,25 @@ router.post('/upload', verifyToken, (req, res) => {
         if (!req.file) {
             return res.status(400).send({ message: 'No file uploaded' });
         }
-        const imageURL = `http://localhost:5555/uploads/${req.file.filename}`;
-        res.status(200).send({ imageURL });
+
+        try {
+            // Upload buffer directly to Cloudinary via a stream
+            const uploadResult = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'book-store', resource_type: 'image' },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+                stream.end(req.file.buffer);
+            });
+
+            res.status(200).send({ imageURL: uploadResult.secure_url });
+        } catch (cloudinaryError) {
+            console.error('Cloudinary upload error:', cloudinaryError);
+            res.status(500).send({ message: 'Image upload to cloud failed' });
+        }
     });
 });
 

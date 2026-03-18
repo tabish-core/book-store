@@ -25,7 +25,7 @@ const Login = () => {
             const response = await axios.post(`${config.API_URL}/auth/login`, { email, password });
             login(response.data.token, { username: response.data.username });
             setLoading(false);
-            enqueueSnackbar('ACCESS GRANTED', { variant: 'success' });
+            enqueueSnackbar('Logged in Successfully!', { variant: 'success' });
             navigate('/');
         } catch (error) {
             setLoading(false);
@@ -42,7 +42,7 @@ const Login = () => {
                         <PiBookOpenTextLight className="text-4xl text-white" />
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
-                        Enter<br />The<br />Store
+                        Enter<br />The<br />World
                     </h1>
                 </div>
                 <p className="text-slate-950 font-mono font-bold text-sm sm:text-lg max-w-sm z-10 mt-6 sm:mt-8">

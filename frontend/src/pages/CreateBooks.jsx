@@ -87,7 +87,7 @@ const CreateBooks = () => {
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Book Cover</label>
               {imageURL ? (
                 <div className="relative border-2 border-slate-950 dark:border-zinc-50 p-2 bg-slate-100 dark:bg-zinc-800">
-                  <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50 grayscale hover:grayscale-0 transition-all" />
+                  <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50" />
                   <button
                     onClick={() => setImageURL('')}
                     className="absolute top-4 right-4 px-3 py-1 bg-red-600 text-white text-xs font-bold border-2 border-slate-950 hover:bg-red-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"

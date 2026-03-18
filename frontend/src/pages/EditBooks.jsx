@@ -103,7 +103,7 @@ const EditBook = () => {
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Book Cover</label>
               {imageURL ? (
                 <div className="relative border-2 border-slate-950 dark:border-zinc-50 p-2 bg-slate-100 dark:bg-zinc-800">
-                  <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50 grayscale" />
+                  <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50" />
                   <label className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
                     <span className="px-4 py-2 bg-white text-slate-950 font-bold uppercase border-2 border-slate-950 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px]">
                       Change Image

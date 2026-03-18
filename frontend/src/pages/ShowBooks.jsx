@@ -48,7 +48,7 @@ const ShowBook = () => {
             {book.imageURL ? (
               <img src={book.imageURL} alt={book.title} className="w-full h-auto object-cover border-2 border-slate-950 dark:border-zinc-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
             ) : (
-              <div className="text-4xl font-black text-slate-300 dark:text-zinc-700 uppercase">No Visual</div>
+              <div className="text-4xl font-black text-slate-300 dark:text-zinc-700 uppercase">No Image</div>
             )}
           </div>
 
@@ -74,7 +74,7 @@ const ShowBook = () => {
 
               <div className="p-6 bg-orange-50 dark:bg-zinc-800 border-2 border-slate-950 dark:border-zinc-50">
                 <p className="font-mono text-sm leading-relaxed text-slate-800 dark:text-zinc-300">
-                  SYSTEM NOTE: This record is finalized. Any modifications require administrative privileges.
+                  There is no friend as loyal as a book.
                 </p>
               </div>
             </div>

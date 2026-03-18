@@ -18,15 +18,34 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: MAX_FILE_SIZE },
+    fileFilter: (req, file, cb) => {
+        if (!file.mimetype.startsWith('image/')) {
+            return cb(new Error('Only image files are allowed'));
+        }
+        cb(null, true);
+    }
+});
 
 // Route for Uploading Image
-router.post('/upload', verifyToken, upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send({ message: 'No file uploaded' });
-    }
-    const imageURL = `http://localhost:5555/uploads/${req.file.filename}`;
-    res.status(200).send({ imageURL });
+router.post('/upload', verifyToken, (req, res) => {
+    upload.single('image')(req, res, (err) => {
+        if (err) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).send({ message: 'File too large. Maximum size is 5MB.' });
+            }
+            return res.status(400).send({ message: err.message || 'Upload failed' });
+        }
+        if (!req.file) {
+            return res.status(400).send({ message: 'No file uploaded' });
+        }
+        const imageURL = `http://localhost:5555/uploads/${req.file.filename}`;
+        res.status(200).send({ imageURL });
+    });
 });
 
 

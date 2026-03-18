@@ -42,7 +42,7 @@ const Login = () => {
                         <PiBookOpenTextLight className="text-4xl text-white" />
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
-                        Enter<br />The<br />System
+                        Enter<br />The<br />Store
                     </h1>
                 </div>
                 <p className="text-slate-950 font-mono font-bold text-sm sm:text-lg max-w-sm z-10 mt-6 sm:mt-8">
@@ -60,22 +60,22 @@ const Login = () => {
             {/* Right — Form */}
             <div className="w-full md:w-1/2 bg-white dark:bg-zinc-950 p-6 sm:p-12 flex flex-col justify-center">
                 <div className="max-w-md w-full mx-auto">
-                    <h2 className="text-3xl sm:text-4xl font-black uppercase mb-2 text-slate-950 dark:text-zinc-50">Identity Verification</h2>
-                    <p className="font-mono text-sm text-slate-500 dark:text-zinc-400 mb-10">PLEASE PROVIDE CREDENTIALS.</p>
+                    <h2 className="text-3xl sm:text-4xl font-black uppercase mb-2 text-slate-950 dark:text-zinc-50">Enter Credentials</h2>
+                    <p className="font-mono text-sm text-slate-500 dark:text-zinc-400 mb-10">hello jeee :D</p>
 
                     <form onSubmit={handleLogin} className="space-y-6">
                         <Input
-                            label="Email Address"
+                            label="Email"
                             icon={HiOutlineMail}
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="USER@DOMAIN.COM"
+                            placeholder="tabish@gmail.com"
                             required
                             className="uppercase"
                         />
                         <Input
-                            label="Password Key"
+                            label="Password"
                             icon={HiOutlineLockClosed}
                             type="password"
                             value={password}
@@ -84,7 +84,7 @@ const Login = () => {
                             required
                         />
                         <Button type="submit" loading={loading} className="w-full h-14 text-lg">
-                            {loading ? 'AUTHENTICATING...' : 'INITIATE SESSION'}
+                            {loading ? 'AUTHENTICATING...' : 'Sign In'}
                         </Button>
                     </form>
 

@@ -34,26 +34,46 @@ const EditBook = () => {
       .catch(() => { setLoading(false); enqueueSnackbar('ERROR LOADING DATA', { variant: 'error' }); });
   }, [id, enqueueSnackbar]);
 
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_SIZE) {
+      enqueueSnackbar('Image too large. Maximum size is 5MB.', { variant: 'warning' });
+      e.target.value = '';
+      return;
+    }
     const formData = new FormData();
     formData.append('image', file);
     setLoading(true);
     axios.post(`${config.API_URL}/books/upload`, formData, {
       headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     })
-      .then((res) => { setImageURL(res.data.imageURL); setLoading(false); enqueueSnackbar('ASSET UPDATED', { variant: 'success' }); })
-      .catch(() => { setLoading(false); enqueueSnackbar('UPLOAD FAILED', { variant: 'error' }); });
+      .then((res) => { setImageURL(res.data.imageURL); setLoading(false); enqueueSnackbar('Cover Updated', { variant: 'success' }); })
+      .catch((error) => { setLoading(false); enqueueSnackbar(error.response?.data?.message || 'UPLOAD FAILED', { variant: 'error' }); });
   };
 
   const handleSave = () => {
+    if (!title || !author || !publishYear) {
+      enqueueSnackbar('Please fill all required fields', { variant: 'warning' });
+      return;
+    }
+
     setLoading(true);
     axios.put(`${config.API_URL}/books/${id}`, { title, author, publishYear, imageURL }, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(() => { setLoading(false); enqueueSnackbar('RECORD OVERWRITTEN', { variant: 'success' }); navigate('/'); })
-      .catch(() => { setLoading(false); enqueueSnackbar('UPDATE FAILED', { variant: 'error' }); });
+      .then(() => {
+        setLoading(false);
+        enqueueSnackbar('Updated', { variant: 'success' });
+        navigate('/');
+      })
+      .catch((error) => {
+        setLoading(false);
+        const message = error.response?.data?.message || 'UPDATE FAILED';
+        enqueueSnackbar(message, { variant: 'error' });
+      });
   };
 
   return (
@@ -75,18 +95,18 @@ const EditBook = () => {
           </div>
 
           <div className="space-y-8">
-            <Input label="Title Designation" icon={HiOutlineBookOpen} value={title} onChange={(e) => setTitle(e.target.value)} className="uppercase" />
-            <Input label="Author Identity" icon={HiOutlineUser} value={author} onChange={(e) => setAuthor(e.target.value)} className="uppercase" />
-            <Input label="Publish Year" icon={HiOutlineCalendar} type="number" value={publishYear} onChange={(e) => setPublishYear(e.target.value)} />
+            <Input label="Enter Title" icon={HiOutlineBookOpen} value={title} onChange={(e) => setTitle(e.target.value)} className="uppercase" />
+            <Input label="Enter Author" icon={HiOutlineUser} value={author} onChange={(e) => setAuthor(e.target.value)} className="uppercase" />
+            <Input label="Enter Publish Year" icon={HiOutlineCalendar} type="number" value={publishYear} onChange={(e) => setPublishYear(e.target.value)} />
 
             <div className="space-y-2 font-mono">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Visual Asset</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-950 dark:text-zinc-50">Book Cover</label>
               {imageURL ? (
                 <div className="relative border-2 border-slate-950 dark:border-zinc-50 p-2 bg-slate-100 dark:bg-zinc-800">
                   <img src={imageURL} alt="Preview" className="w-full h-48 object-cover border border-slate-950 dark:border-zinc-50 grayscale" />
                   <label className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
                     <span className="px-4 py-2 bg-white text-slate-950 font-bold uppercase border-2 border-slate-950 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px]">
-                      Replace Asset
+                      Change Image
                     </span>
                     <input type="file" onChange={handleFileChange} className="hidden" accept="image/*" />
                   </label>

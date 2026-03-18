@@ -82,7 +82,7 @@ const Home = () => {
             <AiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-950 dark:text-zinc-50 text-xl font-bold" />
             <input
               type="text"
-              placeholder="SEARCH DATABASE..."
+              placeholder="SEARCH..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white dark:bg-zinc-900 border-2 border-slate-950 dark:border-zinc-50 text-slate-950 dark:text-zinc-50 font-mono text-sm pl-12 pr-10 py-3 placeholder:text-slate-500 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-4 focus:ring-orange-500/50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
